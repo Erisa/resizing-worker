@@ -1,0 +1,12 @@
+{
+  "name": "r2-resizing",
+  "version": "0.0.0",
+  "devDependencies": {
+    "wrangler": "0.0.27"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev src/index.js",
+    "publish": "wrangler publish src/index.js"
+  }
+}

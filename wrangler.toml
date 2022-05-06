@@ -1,0 +1,3 @@
+name = "r2-resizing"
+compatibility_date = "2022-05-03"
+main = "src/index.js"
