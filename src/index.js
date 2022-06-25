@@ -2,10 +2,6 @@ addEventListener("fetch", event => {
   event.respondWith(handleRequest(event, event.request))
 })
 
-/**
- * Fetch and log a request
- * @param {Request} request
- */
 async function handleRequest(ctx, request) {
   const cache = caches.default;
 	let response = await cache.match(request);
@@ -14,15 +10,14 @@ async function handleRequest(ctx, request) {
     return response
   }
 
-  // Parse request URL to get access to query string
   let url = new URL(request.url)
+  
+  // change this
   url.hostname = "cdn-raw.erisa.dev"
 
   // Cloudflare-specific options are in the cf object.
   let options = { cf: { image: {} } }
 
-  // Copy parameters from query string to request options.
-  // You can implement various different parameters here.
   if (url.searchParams.has("fit")) options.cf.image.fit = url.searchParams.get("fit")
   if (url.searchParams.has("width")) options.cf.image.width = url.searchParams.get("width")
   if (url.searchParams.has("height")) options.cf.image.height = url.searchParams.get("height")
@@ -39,7 +34,6 @@ async function handleRequest(ctx, request) {
     ctx.waitUntil(cache.put(request, await fetch(url, request)));
   }
 
-  // Your Worker is responsible for automatic format negotiation. Check the Accept header.
   const accept = request.headers.get("Accept");
   
   if (!options.cf.image.format){
@@ -49,17 +43,11 @@ async function handleRequest(ctx, request) {
       options.cf.image.format = 'webp';
     }  
   }
-
-  // Get URL of the original (full size) image to resize.
-  // You could adjust the URL here, e.g., prefix it with a fixed address of your server,
-  // so that user-visible URLs are shorter and cleaner.
   const imageURL = url
 
-  // TODO: Customize validation logic
   const { hostname, pathname } = new URL(imageURL)
 
   // Optionally, only allow URLs with JPEG, PNG, GIF, or WebP file extensions
-  // @see https://developers.cloudflare.com/images/url-format#supported-formats-and-limitations
   if (!/\.(jpe?g|png|gif|webp)$/i.test(pathname)) {
     ctx.waitUntil(cache.put(request, await fetch(url, request)));
     return fetch(url, request)
