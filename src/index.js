@@ -11,9 +11,9 @@ async function handleRequest(ctx, request) {
   }
 
   let url = new URL(request.url)
-  
+
   // change this
-  url.hostname = "cdn-raw.erisa.dev"
+  url.hostname = "render.erisa.dev"
 
   // Cloudflare-specific options are in the cf object.
   let options = { cf: { image: {} } }
@@ -29,9 +29,11 @@ async function handleRequest(ctx, request) {
   if (url.searchParams.has("dpr")) options.cf.image.dpr = url.searchParams.get("dpr")
   if (url.searchParams.has("gravity")) options.cf.image.gravity = url.searchParams.get("gravity")
   if (url.searchParams.has("trim")) options.cf.image.trim = url.searchParams.get("trim")
+  if (url.searchParams.has("brightness")) options.cf.image.brightness = url.searchParams.get("brightness")
 
   if (Object.keys(options.cf.image).length === 0){
     ctx.waitUntil(cache.put(request, await fetch(url, request)));
+    return fetch(url, request)
   }
 
   const accept = request.headers.get("Accept");
