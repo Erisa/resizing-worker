@@ -30,6 +30,9 @@ async function handleRequest(ctx, request) {
   if (url.searchParams.has("gravity")) options.cf.image.gravity = url.searchParams.get("gravity")
   if (url.searchParams.has("trim")) options.cf.image.trim = url.searchParams.get("trim")
   if (url.searchParams.has("brightness")) options.cf.image.brightness = url.searchParams.get("brightness")
+  if (url.searchParams.has("gamma")) options.cf.image.gamma = url.searchParams.get("gamma")
+  if (url.searchParams.has("contrast")) options.cf.image.contrast = url.searchParams.get("contrast")
+  if (url.searchParams.has("anim")) options.cf.image.anim = url.searchParams.get("anim")
 
   if (Object.keys(options.cf.image).length === 0){
     ctx.waitUntil(cache.put(request, await fetch(url, request)));
