@@ -13,10 +13,10 @@ async function handleRequest(ctx, request) {
   let url = new URL(request.url)
 
   // change this
-  url.hostname = "render.erisa.dev"
+  url.hostname = url.hostname + ".lewd.tech"
 
   // Cloudflare-specific options are in the cf object.
-  let options = { cf: { image: {} } }
+  let options = { cf: { image: {}, cacheTttl: 604800 } }
 
   if (url.searchParams.has("fit")) options.cf.image.fit = url.searchParams.get("fit")
   if (url.searchParams.has("width")) options.cf.image.width = url.searchParams.get("width")
