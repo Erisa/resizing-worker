@@ -2,11 +2,11 @@
   "name": "r2-resizing",
   "version": "0.0.0",
   "devDependencies": {
-    "wrangler": "^2.20.1"
+    "wrangler": "^3.53.1"
   },
   "private": true,
   "scripts": {
-    "start": "wrangler dev src/index.js",
-    "publish": "wrangler publish src/index.js"
+    "start": "wrangler dev src/index.js --remote",
+    "publish": "wrangler deploy src/index.js"
   }
 }
