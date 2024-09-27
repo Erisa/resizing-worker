@@ -2,7 +2,7 @@
   "name": "r2-resizing",
   "version": "0.0.0",
   "devDependencies": {
-    "wrangler": "^3.53.1"
+    "wrangler": "^3.78.10"
   },
   "private": true,
   "scripts": {
