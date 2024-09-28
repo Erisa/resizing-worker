@@ -3,5 +3,5 @@ compatibility_date = "2022-05-03"
 main = "src/index.js"
 no_bundle = true
 
-# comment out if using free workers
-logpush = true
+[observability]
+enabled = true
